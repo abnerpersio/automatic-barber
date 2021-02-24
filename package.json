@@ -4,13 +4,18 @@
   "description": "API do meu app de consultas",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/abnerpersio/automatic-barber-api.git"
   },
-  "keywords": [],
+  "keywords": [
+    "api",
+    "autenticacao",
+    "agendamentos"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
