@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa');
+@import url('https://fonts.googleapis.com/css2?family=Inter');
+
+:root {
+  --color-darkess-blue: #141B41;
+  --color-dark-blue: #306BAC;
+  --color-blue: #6F9CEB;
+  --color-light-blue: #98B9F2;
+  --color-yellow: #FFCB47;
+  --color-white: #F8F1FF;
+  --color-black: #0d0d0e;
+  --color-gray: #44444b;
+
+  --font-family-main: 'Comfortaa', cursive;
+  --font-family-secondary: 'Inter', sans-serif;
+
+  --border-small: 0.5px solid rgba(0, 0, 0, 0.15);
+  --border-default: 1px solid rgba(0, 0, 0, 0.25);
+  --box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+  --border-radius: 4px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family-secondary);
+  outline: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-white);
+  color: var(--color-black);
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamentos Online</title>
+
+  <link rel="stylesheet" href="/styles/index.css" type="text/css">
+</head>
+
+<body>
+  <section class="container">
+
+    <h1 id="logo">AutomaticBarber</h1>
+
+    <div class="card">
+      <form action="/register" method="post">
+
+        <label for="name">Nome</label>
+        <input required name="name" id="name" type="text" placeholder="Digite seu nome" />
+
+        <label for="email">Email</label>
+        <input required name="email" id="email" type="email" placeholder="Digite seu melhor email" />
+
+        <label for="service">Serviço</label>
+        <select required name="service" id="service">
+          <option disabled value="" selected>Escolha uma opção</option>
+          <option value="hair">Cabelo</option>
+          <option value="beard">Barba</option>
+        </select>
+
+        <section class="flex-container margin-top-16">
+          <div>
+            <label for="day">Dia</label>
+            <input required name="day" id="day" type="date" />
+          </div>
+
+          <div>
+            <label for="hour">Horário</label>
+            <input required name="hour" id="hour" type="time" />
+          </div>
+        </section>
+
+        <button type="submit">Enviar</button>
+
+      </form>
+    </div>
+
+  </section>
+</body>
+
+</html>
