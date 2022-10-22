@@ -1,5 +1,15 @@
-export class SendMailRunner {
-  constructor() {}
+import { MailWorker } from '../../workers/mail-worker';
+import { logger } from '../config/logger';
+import { queueConfig } from '../config/queue';
+import { Receiver } from '../queue/receiver';
 
-  run() {}
+export class SendMailRunner {
+  static run() {
+    const target = queueConfig.mailQueue;
+    const worker = new MailWorker();
+    const receiver = new Receiver(worker, target);
+
+    logger.info(`Listening to queue ${target}`);
+    receiver.run();
+  }
 }

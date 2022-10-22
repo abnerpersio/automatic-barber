@@ -12,23 +12,36 @@ type Options = {
 };
 
 export class Receiver {
-  async run(worker: Worker, target: string, options?: Options) {
+  constructor(private readonly worker: Worker, private readonly target: string) {}
+
+  async run() {
     const consumer = Consumer.create({
       sqs: SQS,
-      queueUrl: target,
+      queueUrl: this.target,
       handleMessage: async (message) => {
+        const body = this.formatBody(message.Body);
+        logger.info({ body }, `Processing message at ${this.target}`);
+
         try {
-          logger.info({ body: message.Body }, `Processing message at ${target}`);
-          await worker.execute(message.Body);
+          await this.worker.execute(body);
         } catch (error) {
           logger.error(
-            { message: (error as Error).message, body: message.Body },
-            `Error processing at ${target}`,
+            { message: (error as Error).message, body },
+            `Error processing at ${this.target}`,
           );
         }
       },
     });
 
     consumer.start();
+  }
+
+  private formatBody(body?: string) {
+    if (!body) return {};
+    try {
+      return JSON.parse(body);
+    } catch (_e) {
+      return {};
+    }
   }
 }
