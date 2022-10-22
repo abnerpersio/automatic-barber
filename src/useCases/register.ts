@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 
-type Params = {
+import { queueConfig } from '../infra/config/queue';
+import { Sender } from '../infra/queue/sender';
+
+type Data = {
   name: string;
   email: string;
   service: string;
@@ -9,10 +12,25 @@ type Params = {
 };
 
 export class RegisterUseCase {
-  execute = async (req: Request<unknown, unknown, Params>, res: Response) => {
-    const { day, email, hour, name, service } = req.body;
+  private readonly REQUIRED_FIELDS = {
+    name: 'string',
+    email: 'string',
+    service: 'string',
+    day: 'string',
+    hour: 'string',
+  };
 
-    if (!day || !email || !hour || !name || !service) return res.render('error');
+  execute = async (req: Request<unknown, unknown, Data>, res: Response) => {
+    const data = req.body;
+
+    for (const [field, type] of Object.entries(this.REQUIRED_FIELDS)) {
+      if (!(data as Record<string, string>)[field]) return res.render('error');
+      if (typeof (data as Record<string, string>)[field] !== type) return res.render('error');
+    }
+
+    const sender = new Sender();
+    const target = queueConfig.mailQueue;
+    await sender.dispatch({ data, target });
 
     return res.render('success');
   };
