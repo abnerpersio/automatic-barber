@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { queueConfig } from '../infra/config/queue';
+import { TEMPLATES } from '../infra/constants/templates';
 import { Sender } from '../infra/queue/sender';
 
 type Data = {
@@ -21,16 +22,22 @@ export class RegisterUseCase {
   };
 
   execute = async (req: Request<unknown, unknown, Data>, res: Response) => {
-    const data = req.body;
+    const params = req.body;
 
     for (const [field, type] of Object.entries(this.REQUIRED_FIELDS)) {
-      if (!(data as Record<string, string>)[field]) return res.render('error');
-      if (typeof (data as Record<string, string>)[field] !== type) return res.render('error');
+      if (!(params as Record<string, string>)[field]) return res.render('error');
+      if (typeof (params as Record<string, string>)[field] !== type) return res.render('error');
     }
 
     const sender = new Sender();
     const target = queueConfig.mailQueue;
-    await sender.dispatch({ data, target });
+    await sender.dispatch({
+      data: {
+        template: TEMPLATES.SUCESSFULL_REGISTERED,
+        params,
+      },
+      target,
+    });
 
     return res.render('success');
   };
