@@ -1,3 +1,4 @@
+import './infra/config/env';
 import { logger } from './infra/config/logger';
 import { server } from './server';
 
