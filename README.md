@@ -13,7 +13,10 @@ Você acessa a tela principal,
 git clone https://github.com/abnerpersio/automatic-barber.git
 ```
 
-2. Instale as dependências
+2. Duplique o arquivo `.env.example`, renomeie o arquivo para `.env` e configure as credenciais de acordo com seu projeto
+
+
+3. Instale as dependências
 ```bash
 yarn install # ou npm install
 ```
