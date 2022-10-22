@@ -1,3 +1,3 @@
-export interface Worker {
-  execute: (body: unknown) => Promise<void>;
+export interface Worker<T = Record<string, unknown>> {
+  execute(data: T): Promise<void>;
 }
